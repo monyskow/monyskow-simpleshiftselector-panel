@@ -20,5 +20,8 @@ jobs:
           persist-credentials: false
 
       - uses: grafana/plugin-actions/build-plugin@build-plugin/v1.0.2
-        with:
-          policy_token: ${{ secrets.GRAFANA_ACCESS_POLICY_TOKEN }}
+        # Note: Signing is disabled for initial release
+        # Public plugins cannot be signed until approved by Grafana team
+        # After catalog approval, uncomment the policy_token line below
+        # with:
+        #   policy_token: ${{ secrets.GRAFANA_ACCESS_POLICY_TOKEN }}
