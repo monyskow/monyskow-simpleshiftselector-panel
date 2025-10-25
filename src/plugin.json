@@ -1,0 +1,68 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/main/docs/sources/developers/plugins/plugin.schema.json",
+  "type": "panel",
+  "name": "Simple Shift Selector",
+  "id": "monyskow-simpleshiftselector-panel",
+  "info": {
+    "keywords": [
+      "shift",
+      "time",
+      "selector",
+      "operations",
+      "manufacturing",
+      "healthcare",
+      "logistics",
+      "time range",
+      "date picker",
+      "timezone"
+    ],
+    "description": "A panel plugin for quickly changing dashboard time range by selecting predefined work shifts. Perfect for operational dashboards with day/night shifts, manufacturing operations, healthcare rotations, and logistics tracking.",
+    "author": {
+      "name": "monyskow",
+      "email": "marcinct@onyskow.com",
+      "url": "https://onyskow.com"
+    },
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "links": [
+      {
+        "name": "GitHub",
+        "url": "https://github.com/monyskow/grafana-simple-shift-selector"
+      },
+      {
+        "name": "Documentation",
+        "url": "https://github.com/monyskow/grafana-simple-shift-selector/blob/main/README.md"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/monyskow/grafana-simple-shift-selector/blob/main/LICENSE"
+      }
+    ],
+    "screenshots": [
+      {
+        "name": "Main Panel View",
+        "path": "img/screenshot-main.png"
+      },
+      {
+        "name": "Configuration Editor",
+        "path": "img/screenshot-config.png"
+      },
+      {
+        "name": "Dark Theme Support",
+        "path": "img/screenshot-dark.png"
+      },
+      {
+        "name": "Real-World Usage Example",
+        "path": "img/screenshot-usecase.png"
+      }
+    ],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+  "dependencies": {
+    "grafanaDependency": ">=10.4.0",
+    "plugins": []
+  }
+}

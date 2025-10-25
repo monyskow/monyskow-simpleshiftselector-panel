@@ -1,0 +1,306 @@
+.container {
+  padding: 8px;
+  background: var(--container-bg);
+  border-radius: 8px;
+}
+
+.mainRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.datePickerSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  background: var(--date-picker-bg);
+  border-radius: 8px;
+  border: 1px solid var(--date-picker-border);
+  flex-shrink: 0;
+  height: 32px;
+}
+
+.datePickerLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--shift-button-text);
+  white-space: nowrap;
+}
+
+.datePickerLabel svg {
+  font-size: 18px;
+}
+
+.dateInput {
+  min-width: 150px;
+}
+
+.dateInput input,
+.nativeInput {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  height: 32px !important;
+  padding: 0 8px !important;
+  cursor: pointer !important;
+  background: var(--date-input-bg) !important;
+  border: 1px solid var(--date-input-border) !important;
+  color: var(--date-input-text) !important;
+  border-radius: 4px !important;
+  transition: all 0.2s ease !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+
+.dateInput input:hover,
+.nativeInput:hover {
+  border-color: var(--date-input-hover-border) !important;
+  background: var(--date-input-hover-bg) !important;
+}
+
+.dateInput input:focus,
+.nativeInput:focus {
+  outline: none !important;
+  border-color: var(--date-input-focus-border) !important;
+  box-shadow: 0 0 0 2px var(--date-input-focus-shadow) !important;
+}
+
+/* Force date format display order */
+.dateInput input::-webkit-datetime-edit-year-field,
+.nativeInput::-webkit-datetime-edit-year-field {
+  order: 1;
+}
+
+.dateInput input::-webkit-datetime-edit-month-field,
+.nativeInput::-webkit-datetime-edit-month-field {
+  order: 2;
+}
+
+.dateInput input::-webkit-datetime-edit-day-field,
+.nativeInput::-webkit-datetime-edit-day-field {
+  order: 3;
+}
+
+.dateInput input::-webkit-datetime-edit-text,
+.nativeInput::-webkit-datetime-edit-text {
+  order: 1.5;
+}
+
+/* Style the calendar icon in date inputs */
+.dateInput input::-webkit-calendar-picker-indicator,
+.nativeInput::-webkit-calendar-picker-indicator {
+  cursor: pointer !important;
+  opacity: 1 !important;
+  filter: var(--date-input-icon-filter) !important;
+  transition: all 0.2s ease !important;
+}
+
+.dateInput input::-webkit-calendar-picker-indicator:hover,
+.nativeInput::-webkit-calendar-picker-indicator:hover {
+  transform: scale(1.1) !important;
+}
+
+.todayButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--shift-button-border);
+  background: var(--shift-button-bg);
+  color: var(--shift-button-text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  height: 32px;
+}
+
+.todayButton:hover {
+  background: var(--shift-button-hover-bg);
+  border-color: var(--shift-button-hover-border);
+  transform: translateY(-1px);
+}
+
+.todayButton svg {
+  font-size: 14px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  flex: 1;
+}
+
+.shiftButton {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  border: 2px solid;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--shift-button-bg);
+  border-color: var(--shift-button-border);
+  color: var(--shift-button-text);
+  min-width: auto;
+  overflow: hidden;
+  height: 32px;
+}
+
+.shiftButton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.shiftButton:hover::after {
+  left: 100%;
+}
+
+.shiftButton:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: var(--shift-button-hover-shadow);
+  background: var(--shift-button-hover-bg);
+  border-color: var(--shift-button-hover-border);
+}
+
+.shiftButton:active {
+  transform: translateY(-1px) scale(1.01);
+}
+
+.shiftButton.active {
+  background: var(--shift-button-active-bg);
+  border-color: var(--shift-button-active-border);
+  color: var(--shift-button-active-text);
+  font-weight: 600;
+  box-shadow: var(--shift-button-active-shadow);
+  transform: translateY(-2px);
+}
+
+.shiftButton.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+}
+
+.shiftButton.active .icon {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.icon {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.shiftInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.shiftName {
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.shiftTime {
+  font-size: 12px;
+  opacity: 0.75;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+.dropdownContainer {
+  padding: 8px;
+  background: var(--container-bg);
+  border-radius: 8px;
+}
+
+.selectWrapper {
+  flex: 1;
+  min-width: 250px;
+  max-width: 400px;
+}
+
+.emptyState {
+  padding: 16px;
+  text-align: center;
+  color: var(--text-secondary);
+  background: var(--empty-state-bg);
+  border-radius: 12px;
+  border: 2px dashed var(--empty-state-border);
+  transition: all 0.3s ease;
+}
+
+.emptyState:hover {
+  border-color: var(--empty-state-hover-border);
+  background: var(--empty-state-hover-bg);
+}
+
+/* Light theme variables - default */
+.container {
+  --container-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(245, 245, 245, 0.05) 100%);
+  --shift-button-bg: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  --shift-button-border: #e2e8f0;
+  --shift-button-text: #1e293b;
+  --shift-button-hover-bg: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  --shift-button-hover-border: #cbd5e1;
+  --shift-button-hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shift-button-active-bg: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  --shift-button-active-border: #1d4ed8;
+  --shift-button-active-text: #ffffff;
+  --shift-button-active-shadow: 0 12px 32px rgba(59, 130, 246, 0.35), 0 4px 12px rgba(59, 130, 246, 0.25);
+  --text-secondary: #64748b;
+  --empty-state-bg: #f8fafc;
+  --empty-state-border: #e2e8f0;
+  --empty-state-hover-border: #cbd5e1;
+  --empty-state-hover-bg: #f1f5f9;
+  --date-picker-bg: rgba(248, 250, 252, 0.5);
+  --date-picker-border: #e2e8f0;
+  --date-input-bg: #ffffff;
+  --date-input-border: #e2e8f0;
+  --date-input-text: #1e293b;
+  --date-input-hover-bg: #f8fafc;
+  --date-input-hover-border: #cbd5e1;
+  --date-input-focus-border: #3b82f6;
+  --date-input-focus-shadow: rgba(59, 130, 246, 0.15);
+  --date-input-icon-filter: none;
+}
