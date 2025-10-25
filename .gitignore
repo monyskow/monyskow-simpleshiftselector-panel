@@ -48,3 +48,12 @@ ci/
 # Compliance and tutorial documentation
 GRAFANA_CATALOG_COMPLIANCE.md
 TUTORIAL.md
+
+# Environment variables
+.env
+
+# macOS system files
+.DS_Store
+
+# ZIP archives in root folder
+/*.zip
