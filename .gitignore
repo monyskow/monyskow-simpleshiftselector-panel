@@ -44,3 +44,7 @@ ci/
 .idea
 
 .eslintcache
+
+# Compliance and tutorial documentation
+GRAFANA_CATALOG_COMPLIANCE.md
+TUTORIAL.md
