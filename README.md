@@ -1,117 +1,248 @@
-# Grafana panel plugin template
+# Simple Shift Selector Panel
 
-This template is a starting point for building a panel plugin for Grafana.
+![License](https://img.shields.io/github/license/monyskow/monyskow-simpleshiftselector-panel)
+![CI](https://img.shields.io/github/actions/workflow/status/monyskow/monyskow-simpleshiftselector-panel/ci.yml)
+![Version](https://img.shields.io/github/v/release/monyskow/monyskow-simpleshiftselector-panel)
 
-## What are Grafana panel plugins?
+A Grafana panel plugin for quickly changing dashboard time ranges by selecting predefined work shifts. Perfect for operational dashboards with day/night shifts, manufacturing operations, healthcare rotations, and logistics tracking.
 
-Panel plugins allow you to add new types of visualizations to your dashboard, such as maps, clocks, pie charts, lists, and more.
+![Main Panel View](src/img/screenshot-main.png)
 
-Use panel plugins when you want to do things like visualize data returned by data source queries, navigate between dashboards, or control external systems (such as smart home devices).
+## ✨ Features
 
-## Getting started
+- **Predefined Shift Selection**: Configure custom work shifts (Morning, Afternoon, Night, etc.)
+- **Timezone Support**: Full timezone handling with automatic DST adjustments
+- **Two Display Modes**: Choose between button group or dropdown selector
+- **Date Picker**: Optional calendar for viewing historical shift data
+- **Overnight Shifts**: Support for shifts spanning midnight (e.g., 22:00-06:00)
+- **Automatic Updates**: Dashboard time range updates automatically on shift selection
+- **Dark Theme**: Full support for Grafana's dark and light themes
+- **Auto-Reset**: Shift selection clears when date changes (prevents stale data)
 
-### Frontend
+## 🎯 Use Cases
 
-1. Install dependencies
+### Manufacturing
+Track production metrics across 8-hour shifts (06:00-14:00, 14:00-22:00, 22:00-06:00). Monitor equipment efficiency, downtime, and output for each shift with a single click.
 
-   ```bash
-   npm install
-   ```
+### Healthcare
+Monitor patient care during nurse rotations and shift changes. Quickly view vital statistics, medication administration, and patient outcomes by shift.
 
-2. Build plugin in development mode and run in watch mode
+### Logistics
+View delivery performance and warehouse operations by shift. Track shipments processed, loading dock efficiency, and staff productivity across different work periods.
 
-   ```bash
-   npm run dev
-   ```
+### Operations
+Quick access to current shift data for operational dashboards. Perfect for 24/7 operations centers, customer support teams, and facility management.
 
-3. Build plugin in production mode
+## 📦 Installation
 
-   ```bash
-   npm run build
-   ```
+### From Grafana Catalog (After Approval)
+1. Go to Grafana → Configuration → Plugins
+2. Search for "Simple Shift Selector"
+3. Click Install
 
-4. Run the tests (using Jest)
+### From GitHub Releases
+1. Download the latest release ZIP from [GitHub Releases](https://github.com/monyskow/monyskow-simpleshiftselector-panel/releases)
+2. Extract to your Grafana plugins directory (typically `/var/lib/grafana/plugins/`)
+3. Restart Grafana server
+4. Verify plugin loaded in Grafana logs
 
-   ```bash
-   # Runs the tests and watches for changes, requires git init first
-   npm run test
+### Build from Source
+```bash
+git clone https://github.com/monyskow/monyskow-simpleshiftselector-panel.git
+cd monyskow-simpleshiftselector-panel
+npm install
+npm run build
+```
 
-   # Exits after running all the tests
-   npm run test:ci
-   ```
+## ⚙️ Configuration
 
-5. Spin up a Grafana instance and run the plugin inside it (using Docker)
+### Adding Shifts
+1. Add the Simple Shift Selector panel to your dashboard
+2. Open the panel editor (click panel title → Edit)
+3. In the panel options, click **"Add Shift"**
+4. Configure shift parameters:
+   - **Name**: Display name for the shift (e.g., "Morning", "Day Shift", "Night")
+   - **Start Time**: Shift start time in 24-hour format (e.g., `06:00`)
+   - **End Time**: Shift end time in 24-hour format (e.g., `14:00`)
+   - **Date Offset**: Number of days to add to the end time (0 for same day, 1 for next day)
 
-   ```bash
-   npm run server
-   ```
+### Display Options
+- **Display Mode**: Choose between "Buttons" (visual button group) or "Dropdown" (compact selector)
+- **Show Date Picker**: Enable or disable the date picker for historical data viewing
+- **Timezone**: Select the timezone for shift time calculations (defaults to browser timezone)
 
-6. Run the E2E tests (using Playwright)
+### Overnight Shifts Example
+For a night shift from 22:00 to 06:00 the next morning:
+- **Name**: `Night`
+- **Start**: `22:00`
+- **End**: `06:00`
+- **Date Offset**: `1` (indicates end time is the next day)
 
-   ```bash
-   # Spins up a Grafana instance first that we tests against
-   npm run server
+When selected, this will set the dashboard time range from 22:00 of the selected date to 06:00 of the following date.
 
-   # If you wish to start a certain Grafana version. If not specified will use latest by default
-   GRAFANA_VERSION=11.3.0 npm run server
+### Example Configuration
+```json
+{
+  "shifts": [
+    {
+      "name": "Morning",
+      "start": "06:00",
+      "end": "14:00",
+      "dateOffset": 0
+    },
+    {
+      "name": "Afternoon",
+      "start": "14:00",
+      "end": "22:00",
+      "dateOffset": 0
+    },
+    {
+      "name": "Night",
+      "start": "22:00",
+      "end": "06:00",
+      "dateOffset": 1
+    }
+  ],
+  "displayMode": "buttons",
+  "showDatePicker": true,
+  "timezone": "Europe/Warsaw"
+}
+```
 
-   # Starts the tests
-   npm run e2e
-   ```
+## 📸 Screenshots
 
-7. Run the linter
+### Main Panel View
+![Main View](src/img/screenshot-main.png)
+*Button group display mode with three shifts configured*
 
-   ```bash
-   npm run lint
+### Configuration Editor
+![Config](src/img/screenshot-config.png)
+*Panel editor showing shift configuration options*
 
-   # or
+### Dark Theme
+![Dark Theme](src/img/screenshot-dark.png)
+*Full dark theme support for night operations*
 
-   npm run lint:fix
-   ```
+### Real-World Example
+![Use Case](src/img/screenshot-usecase.png)
+*Example operational dashboard with shift selector*
 
-# Distributing your plugin
+## 🔧 Requirements
 
-When distributing a Grafana plugin either within the community or privately the plugin must be signed so the Grafana application can verify its authenticity. This can be done with the `@grafana/sign-plugin` package.
+- **Grafana**: 10.4.0 or later
+- **Browsers**: Chrome, Firefox, Safari, Edge (modern versions with ES6 support)
 
-_Note: It's not necessary to sign a plugin during development. The docker development environment that is scaffolded with `@grafana/create-plugin` caters for running the plugin without a signature._
+## 🧪 Testing
 
-## Initial steps
+This plugin is thoroughly tested with comprehensive test coverage:
 
-Before signing a plugin please read the Grafana [plugin publishing and signing criteria](https://grafana.com/legal/plugins/#plugin-publishing-and-signing-criteria) documentation carefully.
+- **68 unit tests** using Jest and React Testing Library
+- **32 end-to-end tests** using Playwright and @grafana/plugin-e2e
+- **93.1% code coverage** across statements, branches, and functions
+- Tested across multiple Grafana versions (10.4+, 11.0+, latest)
+- Comprehensive timezone handling and DST transition tests
+- Edge case testing for overnight shifts and date boundaries
 
-`@grafana/create-plugin` has added the necessary commands and workflows to make signing and distributing a plugin via the grafana plugins catalog as straightforward as possible.
+### Running Tests
 
-Before signing a plugin for the first time please consult the Grafana [plugin signature levels](https://grafana.com/legal/plugins/#what-are-the-different-classifications-of-plugins) documentation to understand the differences between the types of signature level.
+```bash
+# Install dependencies
+npm install
 
-1. Create a [Grafana Cloud account](https://grafana.com/signup).
-2. Make sure that the first part of the plugin ID matches the slug of your Grafana Cloud account.
-   - _You can find the plugin ID in the `plugin.json` file inside your plugin directory. For example, if your account slug is `acmecorp`, you need to prefix the plugin ID with `acmecorp-`._
-3. Create a Grafana Cloud API key with the `PluginPublisher` role.
-4. Keep a record of this API key as it will be required for signing a plugin
+# Run unit tests
+npm run test:ci
 
-## Signing a plugin
+# Run unit tests with coverage
+npm run test:coverage
 
-### Using Github actions release workflow
+# Run E2E tests (requires Grafana running)
+npm run server          # In one terminal
+npm run e2e             # In another terminal
 
-If the plugin is using the github actions supplied with `@grafana/create-plugin` signing a plugin is included out of the box. The [release workflow](./.github/workflows/release.yml) can prepare everything to make submitting your plugin to Grafana as easy as possible. Before being able to sign the plugin however a secret needs adding to the Github repository.
+# Run type checking
+npm run typecheck
 
-1. Please navigate to "settings > secrets > actions" within your repo to create secrets.
-2. Click "New repository secret"
-3. Name the secret "GRAFANA_API_KEY"
-4. Paste your Grafana Cloud API key in the Secret field
-5. Click "Add secret"
+# Run linting
+npm run lint
+```
 
-#### Push a version tag
+See [TESTING.md](TESTING.md) for detailed testing documentation and best practices.
 
-To trigger the workflow we need to push a version tag to github. This can be achieved with the following steps:
+## 🤝 Contributing
 
-1. Run `npm version <major|minor|patch>`
-2. Run `git push origin main --follow-tags`
+Contributions are welcome! Whether it's bug reports, feature requests, or code contributions, we appreciate your help in making this plugin better.
 
-## Learn more
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines on:
+- Setting up your development environment
+- Code style and standards
+- Testing requirements
+- Pull request process
 
-Below you can find source code for existing app plugins and other related documentation.
+### Quick Start for Contributors
 
-- [Basic panel plugin example](https://github.com/grafana/grafana-plugin-examples/tree/master/examples/panel-basic#readme)
-- [`plugin.json` documentation](https://grafana.com/developers/plugin-tools/reference/plugin-json)
-- [How to sign a plugin?](https://grafana.com/developers/plugin-tools/publish-a-plugin/sign-a-plugin)
+```bash
+# Fork and clone the repository
+git clone https://github.com/YOUR_USERNAME/monyskow-simpleshiftselector-panel.git
+cd monyskow-simpleshiftselector-panel
+
+# Install dependencies
+npm install
+
+# Start development build (watches for changes)
+npm run dev
+
+# Start Grafana (in a separate terminal)
+npm run server
+
+# Open http://localhost:3000 (admin/admin)
+```
+
+## 📝 License
+
+Apache License 2.0 - see [LICENSE](LICENSE) file for details.
+
+Copyright (c) 2025 monyskow
+
+## 🐛 Support & Community
+
+### Bug Reports
+Found a bug? Please report it on [GitHub Issues](https://github.com/monyskow/monyskow-simpleshiftselector-panel/issues) with:
+- Clear description of the issue
+- Steps to reproduce
+- Grafana and plugin versions
+- Browser and OS information
+- Screenshots or console errors if applicable
+
+### Questions & Discussions
+Have questions or want to discuss features? Use [GitHub Discussions](https://github.com/monyskow/monyskow-simpleshiftselector-panel/discussions)
+
+### Contact
+- **Email**: marcinct@onyskow.com
+- **GitHub**: [@monyskow](https://github.com/monyskow)
+
+## 📚 Additional Documentation
+
+- [CHANGELOG.md](CHANGELOG.md) - Version history and release notes
+- [CONTRIBUTING.md](CONTRIBUTING.md) - Contribution guidelines and development setup
+- [TESTING.md](TESTING.md) - Testing documentation and best practices
+- [TEST_SUMMARY.md](TEST_SUMMARY.md) - Test coverage summary
+
+## 🙏 Acknowledgments
+
+This plugin was built using:
+- [@grafana/create-plugin](https://www.npmjs.com/package/@grafana/create-plugin) - Official Grafana plugin scaffolding tool
+- [dayjs](https://day.js.org/) - Lightweight date/time library with timezone support
+- [Jest](https://jestjs.io/) and [React Testing Library](https://testing-library.com/react) - Testing frameworks
+- [Playwright](https://playwright.dev/) - End-to-end testing framework
+
+## 🌟 Features Coming Soon
+
+- Custom shift templates library
+- Shift handover notes integration
+- Multiple timezone display
+- Shift overlap warnings
+- Export shift schedules
+
+---
+
+Made with ❤️ by [monyskow](https://github.com/monyskow)
