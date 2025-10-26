@@ -21,7 +21,7 @@
     "author": {
       "name": "monyskow",
       "email": "marcinct@onyskow.com",
-      "url": "https://onyskow.com"
+      "url": "https://github.com/monyskow"
     },
     "logos": {
       "small": "img/logo.svg",
@@ -39,6 +39,10 @@
       {
         "name": "License",
         "url": "https://github.com/monyskow/monyskow-simpleshiftselector-panel/blob/main/LICENSE"
+      },
+      {
+        "name": "Sponsor",
+        "url": "https://github.com/sponsors/monyskow"
       }
     ],
     "screenshots": [

@@ -217,8 +217,8 @@ Found a bug? Please report it on [GitHub Issues](https://github.com/monyskow/mon
 Have questions or want to discuss features? Use [GitHub Discussions](https://github.com/monyskow/monyskow-simpleshiftselector-panel/discussions)
 
 ### Contact
-- **Email**: marcinct@onyskow.com
 - **GitHub**: [@monyskow](https://github.com/monyskow)
+- **Sponsor**: [GitHub Sponsors](https://github.com/sponsors/monyskow)
 
 ## 📚 Additional Documentation
 

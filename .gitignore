@@ -57,3 +57,7 @@ TUTORIAL.md
 
 # ZIP archives in root folder
 /*.zip
+
+
+#temp files
+.tmp*/
